@@ -81,6 +81,17 @@ def resultats_Ip(M: list, D: list):
     ratio_rma = max(res_rma) / b
     print("ratio RMA = ", ratio_rma)
 
+def resultats_Ir(instances: list):
+    somme_lsa, somme_lpt, somme_rma = 0, 0, 0
+    for i in range(len(instances)):
+        m, d = instances[i]
+        res_lsa, res_lpt, res_rma = lsa(m, d), lpt(m, d), rma(m, d)
+        b = max([max(d), sum(d)/len(d)])
+        somme_lsa += max(res_lsa) / b
+        somme_lpt += max(res_lpt) / b
+        somme_rma += max(res_rma) / b
+    print("ratio moyen LSA = ", somme_lsa/len(instances))
+    print("ratio moyen LPT = ", somme_lpt/len(instances))
+    print("ratio moyen RMA = ", somme_rma/len(instances))
 
-machines, taches = generer_Ip(10)
-resultats_Ip(machines, taches)
+
