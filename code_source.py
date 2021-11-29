@@ -23,7 +23,6 @@ def lsa(m: list, D: list):
     i = 0
     time = 0
     while i < len(D):
-        chosen_machine = -1
         for j in range(nb_machines):
             if available[j] == time:
                 chosen_machine = j
@@ -45,7 +44,6 @@ def lpt(m: list, d: list):
     time = 0
     D = sorted(D,reverse=True)
     while i < len(D):
-        chosen_machine = -1
         for j in range(nb_machines):
             if available[j] == time:
                 chosen_machine = j
@@ -69,9 +67,9 @@ def rma(m: list, D: list):
 def resultats_Ip(M: list, D: list):
     res_lsa, res_lpt, res_rma = lsa(M, D), lpt(M, D), rma(M, D)
     print("Borne inférieure ‘‘maximum’’ = ", max(D))
-    print("Borne inférieure ‘‘moyenne’’ = ", sum(D)/len(D))
+    print("Borne inférieure ‘‘moyenne’’ = ", sum(D)/len(M))
     print("Résultat LSA = ", max(res_lsa))
-    b = max([max(D), sum(D)/len(D)])
+    b = max([max(D), sum(D)/len(M)])
     ratio_lsa = max(res_lsa) / b
     print("ratio LSA = ", ratio_lsa)
     print("Résultat LPT = ", max(res_lpt))
@@ -86,7 +84,7 @@ def resultats_Ir(instances: list):
     for i in range(len(instances)):
         m, d = instances[i]
         res_lsa, res_lpt, res_rma = lsa(m, d), lpt(m, d), rma(m, d)
-        b = max([max(d), sum(d)/len(d)])
+        b = max([max(d), sum(d)/len(m)])
         somme_lsa += max(res_lsa) / b
         somme_lpt += max(res_lpt) / b
         somme_rma += max(res_rma) / b
@@ -95,3 +93,11 @@ def resultats_Ir(instances: list):
     print("ratio moyen RMA = ", somme_rma/len(instances))
 
 
+valeurs = [1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60,70,80,90,100,120,140,160,180,200,300]
+
+for p in valeurs:
+    m,d = generer_Ip(p)
+    res_lpt = lpt(m,d)
+    b = max([max(d), sum(d)/len(m)])
+    ratio_lpt= max(lpt(m, d)) / b
+    print("p = ", p, " , ratio LPT = ", ratio_lpt)
