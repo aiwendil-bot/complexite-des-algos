@@ -19,18 +19,18 @@ def generer_Ir(m: int, n: int, k: int, dmin: int,dmax: int):
 def lsa(m: list, D: list):
     M = m.copy()
     nb_machines = len(M)
-    available = [0 for i in range(nb_machines)]
+    available = [0 for i in range(nb_machines)] #liste qui stocke les temps où les machines seront disponibles
     i = 0
     time = 0
-    while i < len(D):
+    while i < len(D): #tant qu'il y a des tâches
         for j in range(nb_machines):
-            if available[j] == time:
+            if available[j] == time: #si la machine est disponible, on lui attribue la tâche et on met à jour available
                 chosen_machine = j
                 M[chosen_machine] += D[i]
                 available[chosen_machine] = time + D[i]
                 # print(j, D[i])
                 i += 1
-            if i >= len(D) :
+            if i >= len(D): #tant qu'il y a des tâches
                 break
         time += 1
     return M
@@ -39,19 +39,18 @@ def lpt(m: list, d: list):
     M = m.copy()
     D = d.copy()
     nb_machines = len(M)
-    available = [0 for i in range(nb_machines)]
+    available = [0 for i in range(nb_machines)] #liste qui stocke les temps où les machines seront disponibles
     i = 0
     time = 0
-    D = sorted(D,reverse=True)
-    while i < len(D):
+    D = sorted(D,reverse=True) #tri des tâches par durée décroissante
+    while i < len(D): #tant qu'il y a des tâches
         for j in range(nb_machines):
-            if available[j] == time:
+            if available[j] == time: #si la machine est disponible, on lui attribue la tâche et on met à jour available
                 chosen_machine = j
                 M[chosen_machine] += D[i]
                 available[chosen_machine] = time + D[i]
-                #print(j, D[i])
                 i += 1
-            if i >= len(D) :
+            if i >= len(D): #tant qu'il y a des tâches
                 break
         time += 1
     return M
@@ -64,6 +63,7 @@ def rma(m: list, D: list):
         M[chosen_machine] += D[i]
     return M
 
+#affichage
 def resultats_Ip(M: list, D: list):
     res_lsa, res_lpt, res_rma = lsa(M, D), lpt(M, D), rma(M, D)
     print("Borne inférieure ‘‘maximum’’ = ", max(D))
@@ -79,6 +79,7 @@ def resultats_Ip(M: list, D: list):
     ratio_rma = max(res_rma) / b
     print("ratio RMA = ", ratio_rma)
 
+#affichage
 def resultats_Ir(instances: list):
     somme_lsa, somme_lpt, somme_rma = 0, 0, 0
     for i in range(len(instances)):
@@ -89,15 +90,5 @@ def resultats_Ir(instances: list):
         somme_lpt += max(res_lpt) / b
         somme_rma += max(res_rma) / b
     print("ratio moyen LSA = ", somme_lsa/len(instances))
-    print("ratio moyen LPT = ", somme_lpt/len(instances))
-    print("ratio moyen RMA = ", somme_rma/len(instances))
-
-
-valeurs = [1,2,3,4,5,6,7,8,9,10,15,20,25,30,35,40,45,50,55,60,70,80,90,100,120,140,160,180,200,300]
-
-for p in valeurs:
-    m,d = generer_Ip(p)
-    res_lpt = lpt(m,d)
-    b = max([max(d), sum(d)/len(m)])
-    ratio_lpt= max(lpt(m, d)) / b
-    print("p = ", p, " , ratio LPT = ", ratio_lpt)
+    print(" ratio moyen LPT = ", somme_lpt/len(instances))
+    print(" ratio moyen RMA = ", somme_rma/len(instances),"\n")

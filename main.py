@@ -9,7 +9,7 @@ import tkinter.filedialog
 class minmakespan(Tk):
     def __init__(self):
         Tk.__init__(self)
-        self.title("MIN-MAKESPAN ")
+        self.title("MIN-MAKESPAN")
         w = 400  # width for the Tk root
         h = 300
         ws = self.winfo_screenwidth()  # width of the screen
@@ -44,7 +44,7 @@ class instance_Ip(Tk):
         self.geometry('%dx%d+%d+%d' % (w, h, x, y))
         self.label = Label(self, text = "Choisissez un entier p :")
         self.label.pack()
-        self.entree = Entry(self, textvariable = int, width=30)
+        self.entree = Entry(self, width=30)
         self.entree.pack()
         self.submit = Button(self, text = "Valider", command = self.display_Ip)
         self.submit.pack()
@@ -127,6 +127,7 @@ class instance_Ir(Tk):
             self.destroy()
         except ValueError:
             tkinter.messagebox.showerror( "Erreur", "Vous devez saisir un (des) entier(s) !" )
+
 
 window = minmakespan()
 window.mainloop()
